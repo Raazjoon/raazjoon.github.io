@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BodySense | Razieh Eslami</title>
+<meta name="description" content="Instagram content system for BodySense — a nutrition and wellness clinic. Retention-oriented content planning, sequenced Feed and Stories, and expert-validated production workflow.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+@font-face{font-family:'SoulMotion';src:url('./assets/SoulMotion.otf') format('opentype')}
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+:root{--bg:#393939;--bg2:#312d31;--surface:#463f46;--teal:#bfaabe;--teal2:#9d7f9b;--text:#e3e3e4;--text-muted:#c4bbc3;--border:rgba(191,170,190,.15);--font-sans:'Hanken Grotesk','Helvetica Neue',sans-serif;--font-serif:'Cardo',Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.page-wrapper{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.page-wrapper.visible{opacity:1;transform:translateY(0)}
+.page-exit{opacity:0!important;transform:translateY(-14px)!important;transition:opacity .3s ease,transform .3s ease!important}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(57,57,57,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'SoulMotion',var(--font-serif);font-size:1.35rem;color:var(--teal);letter-spacing:.04em;text-decoration:none;transition:opacity .2s;display:flex;align-items:center}
+.nav-logo:hover{opacity:.75}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--font-sans);font-size:.82rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--teal);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-muted);transition:all .3s}
+.mobile-menu{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(49,45,49,.97);backdrop-filter:blur(18px);padding:1.5rem 3rem;gap:1.2rem;z-index:99;border-bottom:1px solid var(--border);transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s}
+.mobile-menu.open{display:flex;opacity:1;transform:translateY(0)}
+.mobile-menu a{font-size:.9rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--teal)}
+footer{text-align:center;padding:3rem 2rem;color:var(--text-muted);font-size:.8rem;letter-spacing:.06em;border-top:1px solid var(--border);margin-top:6rem}
+footer a{color:var(--teal);text-decoration:none}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media (max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}}
+</style>
+<style>
+.project-hero{padding:140px 3rem 4rem;max-width:900px;margin:0 auto;text-align:center}
+.project-pre{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem}
+.project-hero h1{font-family:var(--font-serif);font-size:clamp(2.8rem,7vw,5rem);font-weight:400;line-height:1.08;margin-bottom:1.5rem}
+.project-hero .desc{font-size:1.05rem;line-height:1.8;color:var(--text-muted);max-width:640px;margin:0 auto 2.5rem}
+.project-meta{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;padding:2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:3rem}
+.meta-item small{display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.3rem}
+.meta-item span{font-size:.9rem;color:var(--text)}
+
+.case-section{max-width:900px;margin:0 auto;padding:3rem 3rem 1rem}
+.case-section h2{font-family:var(--font-serif);font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text);margin-bottom:1.2rem;line-height:1.25}
+.case-section h3{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:2rem 0 .8rem;font-weight:600}
+.case-section p{font-size:.98rem;line-height:1.85;color:var(--text-muted);margin-bottom:1.1rem}
+.case-section p strong{color:var(--text);font-weight:600}
+.case-section ul{list-style:none;margin:0 0 1.2rem 0;padding:0}
+.case-section ul li{position:relative;padding-left:1.2rem;font-size:.95rem;line-height:1.75;color:var(--text-muted);margin-bottom:.5rem}
+.case-section ul li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.15rem}
+.case-section em{color:var(--text);font-style:normal;border-bottom:1px dotted var(--teal)}
+
+.journey-flow{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:2px;margin:1.2rem 0 2rem;justify-content:center}
+.journey-step{font-size:.82rem;color:var(--text);padding:.5rem .9rem;background:var(--surface);border-radius:2px;white-space:nowrap}
+.journey-arrow{color:var(--teal);font-size:1rem}
+
+.mix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:1rem;margin:1.2rem 0 2rem}
+.mix-card{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.3rem;border-radius:2px}
+.mix-card h4{font-family:var(--font-serif);font-size:1.05rem;color:var(--teal);margin-bottom:.6rem;font-weight:400}
+.mix-card p{font-size:.85rem;line-height:1.6;color:var(--text-muted);margin:0}
+
+.finding{background:var(--surface);border-left:3px solid var(--teal);padding:1.4rem 1.5rem;margin:1.2rem 0;border-radius:0 2px 2px 0}
+.finding-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;font-weight:600}
+.finding p{margin:0;color:var(--text);font-size:.95rem;line-height:1.75}
+.finding p + p{margin-top:.6rem;color:var(--text-muted);font-size:.9rem}
+
+.limitation{background:transparent;border:1px dashed rgba(227,227,228,.3);padding:1.2rem 1.4rem;margin:1.2rem 0;border-radius:2px;font-size:.88rem;line-height:1.7;color:var(--text-muted)}
+.limitation strong{color:var(--text-muted);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:600;display:block;margin-bottom:.4rem}
+
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin:1rem 0 1.5rem}
+.stat-tile{background:var(--bg2);border:1px solid var(--border);padding:1rem;border-radius:2px;text-align:center}
+.stat-tile .num{font-family:var(--font-serif);font-size:1.6rem;color:var(--teal);display:block;line-height:1.1;margin-bottom:.3rem}
+.stat-tile .lbl{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+
+.ownership-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.5rem;margin:1.2rem 0 2rem;background:var(--bg2);padding:1.5rem;border:1px solid var(--border);border-radius:2px}
+.own-item{display:flex;justify-content:space-between;font-size:.85rem;padding:.4rem 0;border-bottom:1px solid rgba(227,227,228,.1)}
+.own-item:last-child{border-bottom:none}
+.own-item span:first-child{color:var(--text-muted)}
+.own-item span:last-child{color:var(--teal);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+
+.project-gallery{max-width:1200px;margin:0 auto;padding:2rem 3rem 4rem}
+.gallery-label{text-align:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:2rem}
+.portfolio-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));grid-auto-rows:auto}
+.portfolio-img{width:100%;height:auto;display:block;border-radius:2px;transition:opacity .2s,transform .25s;cursor:zoom-in}
+.portfolio-img:hover{opacity:.85;transform:scale(1.005)}
+
+.project-nav{max-width:1200px;margin:0 auto;padding:0 3rem 6rem;display:flex;justify-content:space-between;gap:1rem}
+.project-nav-link{text-decoration:none;border:1px solid var(--border);padding:1.2rem 2rem;transition:border-color .3s,background .3s;flex:1;max-width:300px}
+.project-nav-link:hover{border-color:var(--teal);background:rgba(191,170,190,.04)}
+.project-nav-link small{display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.4rem}
+.project-nav-link span{font-size:.95rem;color:var(--text)}
+.project-nav-link.next{text-align:right}
+
+.lightbox{display:none;position:fixed;inset:0;background:rgba(36,32,36,.96);z-index:1000;justify-content:center;align-items:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:92vh;border-radius:2px;box-shadow:0 20px 80px rgba(0,0,0,.7);pointer-events:none}
+.lightbox-close{position:fixed;top:1.2rem;right:1.5rem;color:var(--text);font-size:1.4rem;cursor:pointer;opacity:.55;transition:opacity .2s;background:none;border:none;z-index:1001}
+.lightbox-close:hover{opacity:1}
+
+@media (max-width:768px){
+  .project-hero{padding:120px 1.5rem 3rem}
+  .case-section{padding:2rem 1.5rem 1rem}
+  .project-gallery{padding:1rem 1.5rem 3rem}
+  .project-nav{padding:0 1.5rem 4rem;flex-direction:column}
+  .project-nav-link{max-width:100%}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){.portfolio-grid{grid-template-columns:1fr}}
+</style>
+<style>
+/* Added from the Canva portfolio — built on the existing tokens */
+.data-table{width:100%;border-collapse:collapse;margin:1.2rem 0 1.5rem;font-size:.88rem}
+.data-table th{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;text-align:left;padding:.9rem 1rem;background:var(--bg2);border:1px solid var(--border)}
+.data-table td{padding:.85rem 1rem;color:var(--text-muted);border:1px solid var(--border);background:var(--surface)}
+.data-table td:first-child{color:var(--text)}
+.table-scroll{overflow-x:auto}
+.sample-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.2rem 0 1.5rem}
+.sample-row figure{margin:0}
+.sample-row img{width:100%;height:auto;display:block;border-radius:2px;cursor:zoom-in;transition:opacity .2s}
+.sample-row img:hover{opacity:.85}
+.sample-row figcaption{margin-top:.6rem;font-size:.85rem;color:var(--text)}
+.sample-row figcaption small{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:.25rem}
+.sample-row.insights{max-width:460px}
+.sample-row.wide{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin:1rem 0 1.5rem}
+.stat-tile{background:var(--bg2);border:1px solid var(--border);padding:1rem;border-radius:2px;text-align:center}
+.stat-tile .num{font-family:var(--font-serif);font-size:1.6rem;color:var(--teal);display:block;line-height:1.1;margin-bottom:.3rem}
+.stat-tile .lbl{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+.mix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.2rem 0 2rem}
+.mix-card{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.3rem;border-radius:2px}
+.mix-card h4{font-family:var(--font-serif);font-size:1.05rem;color:var(--teal);margin-bottom:.6rem;font-weight:400}
+.mix-card p{font-size:.85rem;line-height:1.6;color:var(--text-muted);margin:0}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Razieh Eslami</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+<div class="page-wrapper">
+
+<div class="project-hero reveal">
+  <p class="project-pre">Wellness · Instagram Content System</p>
+  <h1>BodySense</h1>
+  <p class="desc">An ongoing Instagram content system for a nutrition and wellness clinic — designed to keep the clinic visible and active, reinforce expertise, and remind existing audiences about services, packages, and return visits.</p>
+  <div class="project-meta">
+    <div class="meta-item"><small>Role</small><span>Social Media Strategist, Designer &amp; Community Manager</span></div>
+    <div class="meta-item"><small>Year</small><span>2023</span></div>
+    <div class="meta-item"><small>Duration</small><span>June 2023 – November 2023</span></div>
+    <div class="meta-item"><small>Platform</small><span>Instagram (Feed + Stories)</span></div>
+  </div>
+</div>
+
+<section class="case-section reveal">
+  <h2>The context</h2>
+  <p>When I joined, the clinic already had substantial service-explanation content and an established visual identity. The primary need was <strong>ongoing Instagram activity</strong> that demonstrated the clinic was active, services were genuinely being delivered, previous results remained relevant, and audiences were reminded to return or refer others.</p>
+  <p>The project was oriented more toward <em>retention, trust reinforcement, brand salience, service reminders, and referral</em> than pure initial awareness.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Understand the business</h2>
+  <p>BodySense needed communication that helped people stay connected, maintain healthier habits, and keep the clinic relevant between visits.</p>
+  <h3>The challenge</h3>
+  <ul>
+    <li>Stay visible between visits.</li>
+    <li>Turn expertise into everyday guidance.</li>
+    <li>Build trust through real progress.</li>
+    <li>Encourage return visits and referrals.</li>
+  </ul>
+  <h3>Business goal</h3>
+  <p>Build a communication system that sustained visibility, reinforced trust, and encouraged long-term engagement.</p>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Education, proof, reminders, and real activity kept the clinic—and healthy habits—present in daily life.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Core communication logic</h2>
+  <div class="journey-flow">
+    <span class="journey-step">Stay Visible</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Show Activity</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Reinforce Proof</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Remind About Services</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Encourage Return / Referral</span>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Understand the audience</h2>
+  <p>The clinic served people at different stages of their relationship—not just first-time visitors. Communication therefore had to support each stage with relevant content.</p>
+  <h3>Audience needs</h3>
+  <div class="pillar-row">
+    <div class="pillar-chip"><small>Need 01</small>Practical nutrition guidance</div>
+    <div class="pillar-chip"><small>Need 02</small>Trust through real progress</div>
+    <div class="pillar-chip"><small>Need 03</small>Ongoing reminders</div>
+    <div class="pillar-chip"><small>Need 04</small>Reasons to return and recommend</div>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Content was planned around recurring client needs—not individual posts.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Feed content system</h2>
+  <p>The Feed used a recurring three-part mix, each type doing a different job:</p>
+  <div class="mix-grid">
+    <div class="mix-card"><h4>Educational</h4><p>Foods, nutrition, and related education — built around real specialist recommendations.</p></div>
+    <div class="mix-card"><h4>Client Transformation</h4><p>Real examples of client results, reinforcing that outcomes were genuinely delivered.</p></div>
+    <div class="mix-card"><h4>Food / Exercise Video</h4><p>Practical food, exercise, and lifestyle content — accessible and repeatable.</p></div>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Sequential Stories</h2>
+  <p>Stories weren't isolated promotional posts — they were <strong>sequenced</strong> to move audiences from information to demonstration to offer. An example three-day sequence:</p>
+  <div class="journey-flow">
+    <span class="journey-step">Day 1 · Education</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Day 2 · Real Demonstration</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Day 3 · Offer / Package Reminder</span>
+  </div>
+  <p>Recurring patterns included <em>Explain → Demonstrate → Offer</em> and <em>Result → Explain → Show Real Activity → Remind About Service</em>. Stories covered fun content, occasions, testimonials, short education, food properties, recipes, clinic environment, behind-the-scenes activity, real service/device videos, and package reminders.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Build the communication system</h2>
+  <p>Different content types served different communication purposes. Together, they formed one connected content system.</p>
+  <div class="sample-row">
+    <figure><img src="assets/bodysense-type-educational.jpg" loading="lazy" alt="Educational post"><figcaption><small>Teach</small>Educational Posts</figcaption></figure>
+    <figure><img src="assets/bodysense-type-story.jpg" loading="lazy" alt="Story"><figcaption><small>Engage</small>Story System</figcaption></figure>
+    <figure><img src="assets/bodysense-type-social-proof.jpg" loading="lazy" alt="Client transformation post"><figcaption><small>Build Trust</small>Social Proof</figcaption></figure>
+    <figure><img src="assets/bodysense-type-clinic-activity.jpg" loading="lazy" alt="Clinic activity story"><figcaption><small>Stay Present</small>Everyday Clinic Activity</figcaption></figure>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Each content type served a different purpose, but together they created a consistent system that supported long-term engagement.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Topic selection — context and client-informed</h2>
+  <p>I owned topic selection and content development, using the specialist's domain knowledge and real client experience as inputs. Three input streams fed the calendar:</p>
+  <ul>
+    <li><strong>Cultural &amp; seasonal relevance</strong> — occasions like World Chocolate Day could shape that week's food post, then be redistributed through Stories on the occasion itself.</li>
+    <li><strong>Service-informed education</strong> — the nutrition specialist identified foods and ingredients that played a real role in client diets and recommendations. Educational content was built around those topics.</li>
+    <li><strong>Real client behavior → content</strong> — common unhealthy client choices were identified through specialist experience, followed by an approved healthier alternative and educational content around it.</li>
+  </ul>
+  <div class="journey-flow">
+    <span class="journey-step">Common Client Behavior</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Expert Recommendation</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Healthy Alternative</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Educational Content</span>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Discover what matters</h2>
+  <p>Topics weren't chosen in isolation. They were shaped by specialist input, client behavior, and recurring questions from everyday practice.</p>
+  <div class="table-scroll">
+  <table class="data-table">
+    <thead><tr><th>Recurring Client Need</th><th>Audience Question</th><th>Content Response</th></tr></thead>
+    <tbody>
+      <tr><td>Everyday nutrition</td><td>What should I eat?</td><td>Practical nutrition guidance</td></tr>
+      <tr><td>Visible progress</td><td>Is this approach working?</td><td>Client transformations</td></tr>
+      <tr><td>Trust</td><td>Can I trust this clinic?</td><td>Real clinic activity</td></tr>
+      <tr><td>Consistency</td><td>How do I stay on track?</td><td>Stories &amp; reminders</td></tr>
+      <tr><td>Follow-up</td><td>When should I come back?</td><td>Service reminders</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Content decisions were driven by real client needs—not assumptions or generic nutrition topics.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Content connected to service delivery</h2>
+  <p>Some educational posts became reusable client-education assets. The specialist could send a published post directly to a client while giving advice and refer them to it for more explanation.</p>
+  <div class="journey-flow">
+    <span class="journey-step">Real Client Need</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Expert Knowledge</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Content</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Social Distribution</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Reuse in Client Advice</span>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>End-to-end production workflow</h2>
+  <p>I managed the full pipeline for educational content, from topic discovery through publishing, with domain accuracy validated by the clinic specialist.</p>
+  <div class="journey-flow" style="font-size:.75rem">
+    <span class="journey-step">Topic Discovery</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Research</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Draft</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Expert Review</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Revision</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Visual Design</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Approval</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Caption</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Hashtags</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Publish</span>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Community management</h2>
+  <p>Routine questions — appointment requests, address, package prices, general service information — were answered directly using standardized responses I created. Questions requiring nutrition or device expertise were escalated to the appropriate specialist. Consistent voice, faster response, and no cross-wires between admin and clinical.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Documented performance examples</h2>
+  <p>Complete period-level analytics were not available. Two surviving Story Insights are shown below as <em>selected performance examples</em> — not evidence of an overall performance trend.</p>
+
+  <h3>Earlier-stage Story</h3>
+  <div class="stat-grid">
+    <div class="stat-tile"><span class="num">194</span><span class="lbl">Views</span></div>
+    <div class="stat-tile"><span class="num">210</span><span class="lbl">Navigation Actions</span></div>
+    <div class="stat-tile"><span class="num">161</span><span class="lbl">Forwards</span></div>
+    <div class="stat-tile"><span class="num">1</span><span class="lbl">Profile Visit</span></div>
+  </div>
+
+  <h3>Later-stage Story</h3>
+  <div class="stat-grid">
+    <div class="stat-tile"><span class="num">1,080</span><span class="lbl">Views</span></div>
+    <div class="stat-tile"><span class="num">1,273</span><span class="lbl">Navigation Actions</span></div>
+    <div class="stat-tile"><span class="num">935</span><span class="lbl">Forwards</span></div>
+    <div class="stat-tile"><span class="num">35</span><span class="lbl">Profile Visits</span></div>
+    <div class="stat-tile"><span class="num">37</span><span class="lbl">Profile Actions</span></div>
+    <div class="stat-tile"><span class="num">8</span><span class="lbl">Shares</span></div>
+  </div>
+
+  <div class="sample-row insights">
+    <figure><img src="assets/bodysense-insights-earlier.png" loading="lazy" alt="Earlier documented Story insights"><figcaption><small>Earlier documented Story</small>194 views · 1 profile visit</figcaption></figure>
+    <figure><img src="assets/bodysense-insights-later.png" loading="lazy" alt="Later documented Story insights"><figcaption><small>Later documented Story</small>1,080 views · 35 profile visits</figcaption></figure>
+  </div>
+
+
+  <div class="limitation"><strong>Honest limitation</strong>These are two individual Story examples, not period averages or matched samples. The evidence supports <em>selected later-period Stories achieved strong visibility and generated downstream profile activity</em>. It does <strong>not</strong> support a quantified percentage increase in overall performance, an average-view increase from 194 to 1,080, or attribution of the difference to a specific content decision.</div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Observed patterns (recalled)</h2>
+
+  <div class="finding">
+    <div class="finding-label">Observation 01 — Educational &amp; recipe content</div>
+    <p>Educational and recipe-based posts appeared to generate stronger Save and Share behavior than other content types.</p>
+    <p>Recalled observation; not validated by the recovered Insights.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Observation 02 — Stories generated more conversation</div>
+    <p>Informal, problem-led Stories appeared to generate more direct questions and replies than educational Feed posts.</p>
+    <p>Hypothesis: more conversational, direct, problem-oriented Story language contributed to this. An observed pattern, not proof that tone alone caused the increase.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Observation 03 — Real activity &amp; appointments</div>
+    <p>Behind-the-scenes videos, real clinic activity, and devices in use were intentionally used to increase credibility and demonstrate real service delivery.</p>
+    <p>The clinic perceived higher appointment activity after Instagram became more active, but no baseline, booking dataset, or attribution evidence proves Instagram caused the increase — so I don't present "increased appointments" as a portfolio result.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Next direction</h2>
+  <ul>
+    <li>Expand conversational Stories.</li>
+    <li>Increase reminder-based content.</li>
+    <li>Validate patterns with broader performance data.</li>
+  </ul>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Performance observations informed future decisions within the limits of available evidence.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Ownership</h2>
+  <div class="ownership-list">
+    <div class="own-item"><span>Overall Brand Identity</span><span>Existing / Not Owned</span></div>
+    <div class="own-item"><span>Feed Cover System</span><span>Existing / Not Owned</span></div>
+    <div class="own-item"><span>Content Planning</span><span>Owned</span></div>
+    <div class="own-item"><span>Topic Selection</span><span>Owned + Expert</span></div>
+    <div class="own-item"><span>Feed Content Structure</span><span>Owned</span></div>
+    <div class="own-item"><span>Story Content System</span><span>Owned</span></div>
+    <div class="own-item"><span>Research &amp; Drafting</span><span>Owned + Validated</span></div>
+    <div class="own-item"><span>Visual Content Design</span><span>Owned</span></div>
+    <div class="own-item"><span>Captions &amp; Hashtags</span><span>Owned + Approval</span></div>
+    <div class="own-item"><span>Scheduling / Publishing</span><span>Owned</span></div>
+    <div class="own-item"><span>Community Management</span><span>Owned</span></div>
+    <div class="own-item"><span>Expert Escalation</span><span>Owned</span></div>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Design evolution — NourishWell</h2>
+  <p>An experience-informed concept exploring how the BodySense experience could evolve into a new English-language wellness brand.</p>
+  <div class="journey-flow">
+    <span class="journey-step">Real Client Project · BodySense</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Experience-Informed Concept · NourishWell</span>
+  </div>
+  <h3>Real client project — BodySense</h3>
+  <div class="sample-row">
+    <figure><img src="assets/bodysense-work-spinach.jpg" loading="lazy" alt="BodySense post: spinach"></figure>
+    <figure><img src="assets/bodysense-work-food-prep.jpg" loading="lazy" alt="BodySense story: food prep"></figure>
+    <figure><img src="assets/bodysense-work-stress-eating.jpg" loading="lazy" alt="BodySense post: stress and food"></figure>
+  </div>
+  <h3>Experience-informed concept — NourishWell</h3>
+  <div class="sample-row">
+    <figure><img src="assets/nourishwell-signs.jpg" loading="lazy" alt="NourishWell: 5 signs your diet is actually working"></figure>
+    <figure><img src="assets/nourishwell-balanced-plate.jpg" loading="lazy" alt="NourishWell: your easy guide to a balanced plate"></figure>
+    <figure><img src="assets/nourishwell-myth-fact.jpg" loading="lazy" alt="NourishWell: myth vs fact"></figure>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>From brand to system</h2>
+  <p>A cohesive brand identity extended across multiple content formats.</p>
+  <div class="sample-row">
+    <figure><img src="assets/nourishwell-story.jpg" loading="lazy" alt="NourishWell story set"><figcaption><small>Format</small>Story</figcaption></figure>
+    <figure><img src="assets/nourishwell-carousel.jpg" loading="lazy" alt="NourishWell carousel"><figcaption><small>Format</small>Carousel</figcaption></figure>
+    <figure><img src="assets/nourishwell-infographic.jpg" loading="lazy" alt="NourishWell infographic"><figcaption><small>Format</small>Infographic</figcaption></figure>
+  </div>
+</section>
+
+
+<div class="project-gallery reveal">
+  <p class="gallery-label">Selected Feed &amp; Story Assets</p>
+  <div class="portfolio-grid">
+    <img src="assets/bodysense-work-feed-strip.jpg" loading="lazy" class="portfolio-img" alt="BodySense Feed posts">
+    <img src="assets/bodysense-work-story-1.jpg" loading="lazy" class="portfolio-img" alt="BodySense Story">
+    <img src="assets/bodysense-work-story-2.jpg" loading="lazy" class="portfolio-img" alt="BodySense Story">
+    <img src="assets/bodysense-work-spinach.jpg" loading="lazy" class="portfolio-img" alt="BodySense Feed post">
+    <img src="assets/bodysense-work-food-prep.jpg" loading="lazy" class="portfolio-img" alt="BodySense Story">
+    <img src="assets/bodysense-work-stress-eating.jpg" loading="lazy" class="portfolio-img" alt="BodySense Feed post">
+    <img src="assets/bodysense-type-educational.jpg" loading="lazy" class="portfolio-img" alt="BodySense educational post">
+    <img src="assets/bodysense-type-social-proof.jpg" loading="lazy" class="portfolio-img" alt="BodySense client transformation post">
+  </div>
+</div>
+
+<div class="project-nav">
+  <a href="payrafi.html" class="project-nav-link prev reveal">
+    <small>← Previous</small>
+    <span>PayRafi</span>
+  </a>
+  <a href="index.html" class="project-nav-link next reveal">
+    <small>Back to →</small>
+    <span>All Projects</span>
+  </a>
+</div>
+
+<footer><p>© 2026 Razieh Eslami — All rights reserved. &nbsp; · &nbsp; <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a></p></footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.page-wrapper');
+  if (wrapper) requestAnimationFrame(() => requestAnimationFrame(() => wrapper.classList.add('visible')));
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('http') || link.hasAttribute('data-no-transition')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (wrapper) wrapper.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 310);
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  document.addEventListener('click', function(e) {
+    if (e.target.classList && (e.target.classList.contains('portfolio-img') || e.target.closest('.sample-row'))) {
+      lbImg.src = e.target.src; lightbox.classList.add('open');
+    }
+  });
+  lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.getElementById('lightbox-close').addEventListener('click', function() { lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+});
+</script>
+</body>
+</html>

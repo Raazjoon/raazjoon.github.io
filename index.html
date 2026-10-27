@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Portfolio | Razieh Eslami</title>
+<meta name="description" content="Social Media Designer & Strategist — content systems, cross-platform design, and performance-informed storytelling.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+@font-face {
+  font-family: 'SoulMotion';
+  src: url('./assets/SoulMotion.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+
+:root {
+  --bg:        #393939;
+  --bg2:       #312d31;
+  --surface:   #463f46;
+  --teal:      #bfaabe;
+  --teal2:     #9d7f9b;
+  --text:      #e3e3e4;
+  --text-muted:#c4bbc3;
+  --border:    rgba(191,170,190,0.15);
+  --font-sans: 'Hanken Grotesk', 'Helvetica Neue', sans-serif;
+  --font-serif:'Cardo', Georgia, serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* PAGE TRANSITION */
+.page-wrapper {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.55s cubic-bezier(.4,0,.2,1),
+              transform 0.55s cubic-bezier(.4,0,.2,1);
+}
+.page-wrapper.visible { opacity: 1; transform: translateY(0); }
+.page-exit {
+  opacity: 0 !important;
+  transform: translateY(-14px) !important;
+  transition: opacity 0.3s ease, transform 0.3s ease !important;
+}
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.2rem 3rem;
+  background: rgba(57,57,57,0.55);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--border);
+  transition: background 0.3s;
+}
+.nav-logo {
+  font-family: 'SoulMotion', var(--font-serif);
+  font-size: 1.35rem;
+  color: var(--teal);
+  letter-spacing: 0.04em;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  display: flex; align-items: center;
+}
+.nav-logo:hover { opacity: 0.75; }
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  font-family: var(--font-sans);
+  font-size: 0.82rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.25s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px; left: 0; right: 100%;
+  height: 1px;
+  background: var(--teal);
+  transition: right 0.3s cubic-bezier(.4,0,.2,1);
+}
+.nav-links a:hover, .nav-links a.active { color: var(--teal); }
+.nav-links a:hover::after, .nav-links a.active::after { right: 0; }
+
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 4px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--text-muted); transition: all 0.3s; }
+.mobile-menu {
+  display: none; flex-direction: column;
+  position: fixed; top: 64px; left: 0; right: 0;
+  background: rgba(49,45,49,0.97);
+  backdrop-filter: blur(18px);
+  padding: 1.5rem 3rem; gap: 1.2rem; z-index: 99;
+  border-bottom: 1px solid var(--border);
+  transform: translateY(-10px); opacity: 0;
+  transition: opacity 0.3s, transform 0.3s;
+}
+.mobile-menu.open { display: flex; opacity: 1; transform: translateY(0); }
+.mobile-menu a {
+  font-size: 0.9rem; font-weight: 500;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--text-muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.mobile-menu a:hover { color: var(--teal); }
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 3rem 2rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  border-top: 1px solid var(--border);
+  margin-top: 6rem;
+}
+footer a { color: var(--teal); text-decoration: none; }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(.4,0,.2,1),
+              transform 0.7s cubic-bezier(.4,0,.2,1);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* SECTION TITLES */
+.section-label {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: var(--font-serif);
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+/* BUTTONS */
+.btn {
+  display: inline-block;
+  padding: 0.75rem 2rem;
+  border: 1px solid var(--teal);
+  color: var(--teal);
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 2px;
+  transition: background 0.25s, color 0.25s, transform 0.2s;
+  cursor: pointer;
+  background: transparent;
+}
+.btn:hover { background: var(--teal); color: var(--bg); transform: translateY(-2px); }
+.btn-solid { background: var(--teal); color: var(--bg); }
+.btn-solid:hover { background: var(--teal2); border-color: var(--teal2); color: var(--bg); }
+
+@media (max-width: 768px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hamburger { display: flex; }
+}
+</style>
+
+<style>
+/* Hero */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 90px;
+  padding-bottom: 8rem;
+  overflow: hidden;
+}
+#hero-canvas { display: block; }
+
+.hero-center {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 1rem;
+}
+.hero-photo-wrap {
+  width: clamp(150px, 38vw, 450px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--teal);
+  margin-bottom: 1.5rem;
+  flex-shrink: 0;
+}
+.hero-photo-wrap img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.hero-divider {
+  width: 1px; height: 40px;
+  background: rgba(255,255,255,0.18);
+  margin-bottom: 1.5rem;
+}
+@media (max-width: 768px) {
+  .hero { padding-bottom: 6rem; }
+  .hero-divider { height: 24px; }
+  .hero-desc { padding: 0 0.5rem; }
+}
+.hero-subtitle {
+  font-size: 0.8rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--teal);
+  margin-bottom: 0.8rem;
+}
+.hero-name {
+  font-family: var(--font-serif);
+  font-size: clamp(2.4rem, 6vw, 4rem);
+  font-weight: 400;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 1rem;
+}
+.hero-desc {
+  max-width: 520px;
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: var(--text-muted);
+  margin-bottom: 2rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.hero-scroll {
+  position: absolute;
+  bottom: 2.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--text-muted);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: bob 2s ease-in-out infinite;
+  z-index: 2;
+  transition: opacity 0.4s;
+}
+.hero-scroll.hidden { opacity: 0; pointer-events: none; }
+.hero-scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, var(--teal), transparent);
+}
+@keyframes bob {
+  0%,100% { transform: translateX(-50%) translateY(0); }
+  50%      { transform: translateX(-50%) translateY(6px); }
+}
+
+/* Portfolio Grid */
+.portfolio-section {
+  padding: 6rem 3rem;
+  max-width: 1300px;
+  margin: 0 auto;
+}
+.grid-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 3.5rem;
+  flex-wrap: wrap; gap: 1rem;
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.project-card {
+  text-decoration: none;
+  color: var(--text);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  cursor: pointer;
+  transition: transform 0.25s;
+}
+.project-card:hover { transform: translateY(-3px); }
+.card-img-wrap {
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+  aspect-ratio: 1 / 1;
+  background: var(--surface);
+}
+.card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.35s ease, opacity 0.25s;
+}
+.project-card:hover .card-img-wrap img {
+  transform: scale(1.04);
+  opacity: 0.85;
+}
+.card-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 1rem;
+  background: linear-gradient(to top, rgba(36,32,36,0.65) 0%, transparent 50%);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+.project-card:hover .card-overlay { opacity: 1; }
+.card-view-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--teal);
+}
+.card-info { display: flex; flex-direction: column; gap: 0.25rem; padding: 0 0.1rem; }
+.card-title {
+  font-family: var(--font-serif);
+  font-size: 1.2rem;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--text);
+}
+.card-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 768px) {
+  .portfolio-section { padding: 4rem 1.6rem; }
+  .portfolio-grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+}
+@media (max-width: 500px) {
+  .portfolio-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+<style>
+/* Added from the Canva portfolio — same card style as the About page */
+.skills-section {
+  padding: 4rem 3rem 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5px;
+  margin-top: 3rem;
+}
+.skill-card {
+  display: block; text-decoration: none; color: inherit; cursor: pointer;
+  background: var(--surface);
+  padding: 2.5rem 2rem;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0; background: var(--teal);
+  transition: height 0.4s cubic-bezier(.4,0,.2,1);
+}
+.skill-card:hover { border-color: var(--border); background: var(--bg2); }
+.skill-card:hover::before { height: 100%; }
+.skill-num {
+  font-family: var(--font-serif); font-size: 2.5rem;
+  color: rgba(191,170,190,0.55); margin-bottom: 1rem;
+}
+.skill-title {
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem;
+}
+.skill-desc { font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); }
+.skills-lead{max-width:640px;font-size:.98rem;line-height:1.8;color:var(--text-muted);margin-top:1rem}
+.skills-sub{margin-top:4.5rem}
+.skills-subtitle{font-family:var(--font-serif);font-size:clamp(1.4rem,3vw,2rem);font-weight:400;color:var(--text);line-height:1.25}
+.skills-sub + .process-grid{margin-top:1.8rem}
+.process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:1.5px;margin-top:3rem}
+.skill-meta{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted)}
+.statement{margin-top:2rem;background:var(--bg2);border-left:3px solid var(--teal);padding:1.4rem 1.6rem;font-family:var(--font-serif);font-size:1.2rem;line-height:1.5;color:var(--text)}
+@media (max-width: 900px){.skills-section{padding:2rem 1.5rem 4rem}.skills-grid{grid-template-columns:1fr 1fr}.process-grid{grid-template-columns:1fr 1fr}}
+@media (max-width: 500px){.skills-grid,.process-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Razieh Eslami</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-wrapper">
+
+<div class="hero">
+  <canvas id="hero-canvas" style="position:absolute;inset:0;z-index:1;pointer-events:none;"></canvas>
+  <div class="hero-center">
+    <div class="hero-photo-wrap"><img src="assets/hero-profile.jpg" alt="Razieh Eslami"></div>
+    <div class="hero-divider"></div>
+    <p class="hero-subtitle">Communication Strategy · Content Systems · Information Design</p>
+    <h1 class="hero-name">Razieh Eslami</h1>
+    <p class="hero-desc">I plan, design, and measure social content systems — turning brand, expert knowledge, and audience insight into published work across Instagram, LinkedIn, and Telegram.</p>
+    <div class="hero-btns">
+      <a href="#work" class="btn btn-solid" data-no-transition>View Work</a>
+      <a href="about.html" class="btn">About Me</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</div>
+
+<section class="skills-section">
+  <div class="reveal">
+    <p class="section-label">How I Work</p>
+    <h2 class="section-title">Turning Expertise Into Understanding</h2>
+    <p class="skills-lead">I help experts and businesses turn complex ideas into communication people understand, trust, and act on.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-title">Align</div>
+      <p class="skill-desc">Align communication with business goals and audience behavior.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-title">Connect</div>
+      <p class="skill-desc">Connect content and channels into a coherent system.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-title">Clarify</div>
+      <p class="skill-desc">Structure complex information through intentional design.</p>
+    </div>
+  </div>
+  <div class="reveal skills-sub">
+    <h3 class="skills-subtitle">Meaningful communication starts with understanding.</h3>
+  </div>
+  <div class="process-grid">
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-title">Understand the Business</div>
+      <p class="skill-desc">What are we really trying to achieve?</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-title">Understand the Audience</div>
+      <p class="skill-desc">Who are we speaking to?</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-title">Discover What Matters</div>
+      <p class="skill-desc">Why should they care?</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">04</div>
+      <div class="skill-title">Design the Communication System</div>
+      <p class="skill-desc">How should we communicate?</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">05</div>
+      <div class="skill-title">Measure, Learn &amp; Refine</div>
+      <p class="skill-desc">What should we improve next?</p>
+    </div>
+  </div>
+</section>
+
+<section id="work" class="portfolio-section">
+  <div class="grid-header reveal">
+    <div>
+      <p class="section-label">Selected Works</p>
+      <h2 class="section-title">Projects</h2>
+    </div>
+  </div>
+  <div class="portfolio-grid">
+
+    <a href="payrafi.html" class="project-card reveal">
+      <div class="card-img-wrap">
+        <img src="assets/thumb-payrafi-new.jpg" loading="lazy" alt="PayRafi">
+        <div class="card-overlay"><span class="card-view-label">View Project →</span></div>
+      </div>
+      <div class="card-info">
+        <span class="card-title">PayRafi</span>
+        <span class="card-meta">Fintech · Multi-platform Social &nbsp;·&nbsp; 2025–2026</span>
+      </div>
+    </a>
+
+    <a href="bodysense.html" class="project-card reveal">
+      <div class="card-img-wrap">
+        <img src="assets/thumb-bodysense-new.jpg" loading="lazy" alt="BodySense">
+        <div class="card-overlay"><span class="card-view-label">View Project →</span></div>
+      </div>
+      <div class="card-info">
+        <span class="card-title">BodySense</span>
+        <span class="card-meta">Wellness · Instagram Content System &nbsp;·&nbsp; 2023</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="skills-section">
+  <div class="reveal">
+    <p class="section-label">Across Projects</p>
+    <h2 class="section-title">What I Consistently Bring to Projects</h2>
+    <p class="skills-lead">Across different industries and project types, the same pattern keeps appearing.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-title">Audience Understanding</div>
+      <p class="skill-desc"><span class="skill-meta">PayRafi · BodySense</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-title">Information Design</div>
+      <p class="skill-desc"><span class="skill-meta">BodySense · NourishWell</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-title">Measurement &amp; Learning</div>
+      <p class="skill-desc"><span class="skill-meta">PayRafi · BodySense</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">04</div>
+      <div class="skill-title">Communication Strategy</div>
+      <p class="skill-desc"><span class="skill-meta">PayRafi</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">05</div>
+      <div class="skill-title">Content Systems</div>
+      <p class="skill-desc"><span class="skill-meta">PayRafi · BodySense</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">06</div>
+      <div class="skill-title">Communication Design</div>
+      <p class="skill-desc"><span class="skill-meta">PayRafi · BodySense · NourishWell</span></p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">07</div>
+      <div class="skill-title">Expert-to-Audience Translation</div>
+      <p class="skill-desc"><span class="skill-meta">BodySense · NourishWell</span></p>
+    </div>
+  </div>
+  <p class="statement reveal">I design systems that help expertise become understandable, trustworthy, and actionable.</p>
+</section>
+
+<footer>
+  <p>© 2026 Razieh Eslami — All rights reserved. &nbsp; · &nbsp; <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a></p>
+</footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.page-wrapper');
+  if (wrapper) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => wrapper.classList.add('visible'));
+    });
+  }
+
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') ||
+        href.startsWith('tel') || href.startsWith('http') ||
+        link.hasAttribute('data-no-transition')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (wrapper) wrapper.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 310);
+    });
+  });
+
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  revealEls.forEach(el => observer.observe(el));
+
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
+    });
+  }
+
+  const heroScroll = document.querySelector('.hero-scroll');
+  if (heroScroll) {
+    window.addEventListener('scroll', () => {
+      heroScroll.classList.toggle('hidden', window.scrollY > 60);
+    }, { passive: true });
+  }
+});
+</script>
+
+<script src="assets/name-art.js"></script>
+<script>
+initNameArt(document.getElementById('hero-canvas'), {
+  avoidEl: '.hero-photo-wrap',
+  onBuild: function (hasArt) {
+    var h1 = document.querySelector('.hero-name');
+    var want = hasArt ? 'none' : '';
+    if (h1 && h1.style.display !== want) {
+      h1.style.display = want;
+      return true;
+    }
+    return false;
+  }
+});
+</script>
+
+</body>
+</html>

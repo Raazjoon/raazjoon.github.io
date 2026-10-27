@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Contact | Razieh Eslami</title>
+<meta name="description" content="Get in touch with Razieh Eslami — Social Media Designer & Strategist based between Yerevan and Iran.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+@font-face{font-family:'SoulMotion';src:url('./assets/SoulMotion.otf') format('opentype')}
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+:root{--bg:#393939;--bg2:#312d31;--surface:#463f46;--teal:#bfaabe;--teal2:#9d7f9b;--text:#e3e3e4;--text-muted:#c4bbc3;--border:rgba(191,170,190,.15);--font-sans:'Hanken Grotesk','Helvetica Neue',sans-serif;--font-serif:'Cardo',Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.page-wrapper{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.page-wrapper.visible{opacity:1;transform:translateY(0)}
+.page-exit{opacity:0!important;transform:translateY(-14px)!important;transition:opacity .3s ease,transform .3s ease!important}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(57,57,57,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s}
+.nav-logo{font-family:'SoulMotion',var(--font-serif);font-size:1.35rem;color:var(--teal);letter-spacing:.04em;text-decoration:none;transition:opacity .2s;display:flex;align-items:center}
+.nav-logo:hover{opacity:.75}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--font-sans);font-size:.82rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--teal);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-muted);transition:all .3s}
+.mobile-menu{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(49,45,49,.97);backdrop-filter:blur(18px);padding:1.5rem 3rem;gap:1.2rem;z-index:99;border-bottom:1px solid var(--border);transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s}
+.mobile-menu.open{display:flex;opacity:1;transform:translateY(0)}
+.mobile-menu a{font-size:.9rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--teal)}
+footer{text-align:center;padding:3rem 2rem;color:var(--text-muted);font-size:.8rem;letter-spacing:.06em;border-top:1px solid var(--border);margin-top:6rem}
+footer a{color:var(--teal);text-decoration:none}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.section-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem}
+.btn{display:inline-block;padding:.75rem 2rem;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-sans);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .25s,color .25s,transform .2s;cursor:pointer;background:transparent}
+.btn:hover{background:var(--teal);color:var(--bg);transform:translateY(-2px)}
+@media (max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}}
+</style>
+<style>
+.contact-page{padding:140px 3rem 6rem;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:6rem;align-items:start}
+.contact-heading{font-family:var(--font-serif);font-size:clamp(2.4rem,5vw,3.8rem);font-weight:400;line-height:1.1;margin-bottom:1.5rem}
+.contact-intro{font-size:.95rem;line-height:1.8;color:var(--text-muted);margin-bottom:3rem}
+.contact-detail{display:flex;align-items:flex-start;gap:1.2rem;margin-bottom:1.8rem}
+.contact-icon{width:42px;height:42px;border:1px solid var(--border);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1rem;color:var(--teal);flex-shrink:0}
+.contact-detail-text small{display:block;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.3rem}
+.contact-detail-text a,.contact-detail-text span{font-size:.95rem;color:var(--text);text-decoration:none;transition:color .2s}
+.contact-detail-text a:hover{color:var(--teal)}
+.contact-form{background:var(--surface);padding:3rem;border-radius:4px}
+.form-group{margin-bottom:1.8rem;position:relative}
+.form-group label{display:block;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.6rem}
+.form-group input,.form-group textarea{width:100%;background:var(--bg2);border:1px solid rgba(255,255,255,.06);border-radius:2px;padding:.9rem 1rem;color:var(--text);font-family:var(--font-sans);font-size:.9rem;transition:border-color .25s;resize:vertical}
+.form-group input:focus,.form-group textarea:focus{outline:none;border-color:var(--teal)}
+.form-group textarea{min-height:140px}
+.form-submit{width:100%;padding:1rem;background:var(--teal);color:var(--bg);border:none;font-family:var(--font-sans);font-size:.82rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;cursor:pointer;border-radius:2px;transition:background .25s,transform .2s}
+.form-submit:hover{background:var(--teal2);transform:translateY(-2px)}
+@media (max-width:900px){.contact-page{grid-template-columns:1fr;gap:3rem;padding:120px 1.5rem 4rem}.contact-form{padding:2rem}}
+.contact-details-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem 1.6rem;margin-top:1.8rem}
+.contact-details-grid .contact-detail{margin:0}
+.contact-details-grid .contact-detail-text a,.contact-details-grid .contact-detail-text span{word-break:break-word}
+@media (max-width:560px){.contact-details-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Razieh Eslami</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+  </ul>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+<div class="page-wrapper">
+
+<div class="contact-page">
+  <div class="contact-left reveal">
+    <p class="section-label">Get In Touch</p>
+    <h1 class="contact-heading">Let's work<br>together.</h1>
+    <p class="contact-intro">Whether you have a project in mind, want to collaborate, or just want to say hello — I'd love to hear from you. I work with brands across fintech, wellness, and beyond, and I'm open to remote or hybrid engagements.</p>
+
+    <div class="contact-details-grid">
+      <div class="contact-detail">
+        <div class="contact-icon">✉</div>
+        <div class="contact-detail-text">
+          <small>Email</small>
+          <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">➤</div>
+        <div class="contact-detail-text">
+          <small>Telegram</small>
+          <a href="https://t.me/raaz_es" target="_blank" rel="noopener" data-no-transition>@raaz_es</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">in</div>
+        <div class="contact-detail-text">
+          <small>LinkedIn</small>
+          <a href="https://www.linkedin.com/in/raazes" target="_blank" rel="noopener" data-no-transition>@raazes</a>
+        </div>
+      </div>
+      <div class="contact-detail">
+        <div class="contact-icon">⌖</div>
+        <div class="contact-detail-text">
+          <small>Location</small>
+          <span>Yerevan, Armenia &amp; Iran</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form reveal">
+    <form id="contact-form">
+      <div class="form-group">
+        <label for="name">Your Name</label>
+        <input type="text" id="name" name="name" placeholder="Jane Doe" required>
+      </div>
+      <div class="form-group">
+        <label for="email">Your Email</label>
+        <input type="email" id="email" name="email" placeholder="hello@example.com" required>
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me about your project…" required></textarea>
+      </div>
+      <button type="submit" class="form-submit">Send Message →</button>
+      <p style="margin-top:.8rem;font-size:.72rem;color:var(--text-muted);">Opens your email app with the message prefilled.</p>
+    </form>
+  </div>
+</div>
+
+<script>
+document.getElementById('contact-form').addEventListener('submit', function (e) {
+  e.preventDefault();
+  var name = document.getElementById('name').value.trim();
+  var email = document.getElementById('email').value.trim();
+  var msg = document.getElementById('message').value.trim();
+  window.location.href = 'mailto:razieeslami@gmail.com'
+    + '?subject=' + encodeURIComponent('Portfolio contact — ' + name)
+    + '&body=' + encodeURIComponent(msg + '\n\n— ' + name + ' (' + email + ')');
+});
+</script>
+
+<style>
+.name-art-side{position:fixed;inset:0;z-index:0;pointer-events:none}
+.name-art-side canvas{position:absolute;inset:0}
+.page-wrapper{position:relative;z-index:1}
+@media (max-width:1280px){.name-art-side{display:none}}
+</style>
+<div class="name-art-side"><canvas id="name-art-canvas"></canvas></div>
+<script src="assets/name-art.js"></script>
+<script>initNameArt(document.getElementById('name-art-canvas'), {vertical: true, contentWidth: 1240, persist: true});</script>
+
+<footer><p>© 2026 Razieh Eslami — All rights reserved. &nbsp; · &nbsp; <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a></p></footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.page-wrapper');
+  if (wrapper) requestAnimationFrame(() => requestAnimationFrame(() => wrapper.classList.add('visible')));
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('http') || link.hasAttribute('data-no-transition')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (wrapper) wrapper.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 310);
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>About | Razieh Eslami</title>
+<meta name="description" content="Social Media Designer & Strategist based between Yerevan and Iran — content systems, cross-platform planning, and performance-informed design.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+@font-face {
+  font-family: 'SoulMotion';
+  src: url('./assets/SoulMotion.otf') format('opentype');
+}
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+:root {
+  --bg:#393939; --bg2:#312d31; --surface:#463f46;
+  --teal:#bfaabe; --teal2:#9d7f9b;
+  --text:#e3e3e4; --text-muted:#c4bbc3;
+  --border:rgba(191,170,190,0.15);
+  --font-sans:'Hanken Grotesk','Helvetica Neue',sans-serif;
+  --font-serif:'Cardo',Georgia,serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+
+.page-wrapper{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.page-wrapper.visible{opacity:1;transform:translateY(0)}
+.page-exit{opacity:0!important;transform:translateY(-14px)!important;transition:opacity .3s ease,transform .3s ease!important}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(57,57,57,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:background .3s}
+.nav-logo{font-family:'SoulMotion',var(--font-serif);font-size:1.35rem;color:var(--teal);letter-spacing:.04em;text-decoration:none;transition:opacity .2s;display:flex;align-items:center}
+.nav-logo:hover{opacity:.75}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--font-sans);font-size:.82rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--teal);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-muted);transition:all .3s}
+.mobile-menu{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(49,45,49,.97);backdrop-filter:blur(18px);padding:1.5rem 3rem;gap:1.2rem;z-index:99;border-bottom:1px solid var(--border);transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s}
+.mobile-menu.open{display:flex;opacity:1;transform:translateY(0)}
+.mobile-menu a{font-size:.9rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--teal)}
+
+footer{text-align:center;padding:3rem 2rem;color:var(--text-muted);font-size:.8rem;letter-spacing:.06em;border-top:1px solid var(--border);margin-top:6rem}
+footer a{color:var(--teal);text-decoration:none}
+
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.section-label{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.6rem}
+.section-title{font-family:var(--font-serif);font-size:clamp(2rem,5vw,3.2rem);font-weight:400;color:var(--text);line-height:1.2}
+
+.btn{display:inline-block;padding:.75rem 2rem;border:1px solid var(--teal);color:var(--teal);font-family:var(--font-sans);font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-radius:2px;transition:background .25s,color .25s,transform .2s;cursor:pointer;background:transparent}
+.btn:hover{background:var(--teal);color:var(--bg);transform:translateY(-2px)}
+.btn-solid{background:var(--teal);color:var(--bg)}
+.btn-solid:hover{background:var(--teal2);border-color:var(--teal2);color:var(--bg)}
+
+@media (max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}}
+</style>
+
+<style>
+.about-hero {
+  padding: 140px 3rem 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+.about-pre {
+  font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--teal); margin-bottom: 0.8rem;
+}
+.about-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem,5vw,3.5rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin-bottom: 2rem;
+}
+.about-bio { font-size: 1rem; line-height: 1.85; color: var(--text-muted); }
+.about-bio p + p { margin-top: 1.2rem; }
+.about-bio strong { color: var(--text); }
+.about-btns { display: flex; gap: 1rem; margin-top: 2.5rem; flex-wrap: wrap; }
+
+.about-right { position: relative; }
+.about-photo-frame {
+  position: relative;
+  border-radius: 4px;
+  overflow: hidden;
+  aspect-ratio: 3/4;
+  background: var(--surface);
+  display: flex; align-items: center; justify-content: center;
+}
+.about-photo-frame::after {
+  content: ''; position: absolute; inset: 0;
+  border: 2px solid var(--border); border-radius: 4px;
+}
+.about-tag {
+  position: absolute; bottom: -1.5rem; left: -1.5rem;
+  background: var(--teal); color: var(--bg);
+  padding: 1rem 1.5rem; font-weight: 700; font-size: 0.8rem;
+  letter-spacing: 0.05em; border-radius: 2px;
+}
+
+.scroll-hint {
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  color: var(--text-muted); font-size: 0.7rem;
+  letter-spacing: 0.15em; text-transform: uppercase;
+  margin: -1.5rem auto 1rem;
+  animation: bob 2s ease-in-out infinite;
+  transition: opacity 0.4s;
+}
+.scroll-hint.hidden { opacity: 0; }
+.scroll-hint-line { width: 1px; height: 50px; background: linear-gradient(to bottom, var(--teal), transparent); }
+@keyframes bob { 0%,100% { transform: translateY(0); } 50% { transform: translateY(6px); } }
+
+.skills-section {
+  padding: 4rem 3rem 6rem;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5px;
+  margin-top: 3rem;
+}
+.skill-card {
+  display: block; text-decoration: none; color: inherit; cursor: pointer;
+  background: var(--surface);
+  padding: 2.5rem 2rem;
+  border: 1px solid transparent;
+  transition: border-color 0.3s, background 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.skill-card::before {
+  content: ''; position: absolute; top: 0; left: 0;
+  width: 3px; height: 0; background: var(--teal);
+  transition: height 0.4s cubic-bezier(.4,0,.2,1);
+}
+.skill-card:hover { border-color: var(--border); background: var(--bg2); }
+.skill-card:hover::before { height: 100%; }
+.skill-num {
+  font-family: var(--font-serif); font-size: 2.5rem;
+  color: rgba(191,170,190,0.55); margin-bottom: 1rem;
+}
+.skill-title {
+  font-size: 0.85rem; font-weight: 600; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--teal); margin-bottom: 0.8rem;
+}
+.skill-desc { font-size: 0.88rem; line-height: 1.7; color: var(--text-muted); }
+.skill-card-links { margin-top: 0.9rem; display: flex; gap: 1.2rem; position: relative; z-index: 1; }
+.skill-card-links a { color: var(--teal); font-size: 0.78rem; letter-spacing: 0.08em; text-decoration: none; }
+.skill-card-links a:hover { text-decoration: underline; }
+
+@media (max-width: 900px) {
+  .about-hero { grid-template-columns: 1fr; gap: 3rem; padding: 120px 1.5rem 4rem; }
+  .about-right { max-width: 380px; }
+  .skills-section { padding: 2rem 1.5rem 4rem; }
+  .skills-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 500px) {
+  .skills-grid { grid-template-columns: 1fr; }
+}
+</style>
+
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Razieh Eslami</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Portfolio</a></li>
+    <li><a href="about.html" class="active">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger" aria-label="Menu"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+
+<div class="page-wrapper">
+
+<div class="about-hero">
+  <div class="about-right reveal">
+    <div class="about-photo-frame">
+      <img src="assets/about-photo.jpg" alt="Razieh Eslami" style="width:100%;height:100%;object-fit:cover;display:block;">
+    </div>
+    <div class="about-tag">Iranian · Based in Yerevan &amp; Iran</div>
+  </div>
+  <div class="about-left reveal">
+    <p class="about-pre">A little about me</p>
+    <h1 class="about-heading">Designer,<br>strategist,<br>systems thinker.</h1>
+    <div class="about-bio">
+      <p>I'm a <strong>Social Media Designer &amp; Strategist</strong> who treats social media as a system, not a feed. My work spans planning, visual design, cross-platform strategy, and performance measurement — turning brand identity, expert knowledge, and audience insight into content that actually connects.</p>
+      <p>At <strong>PayRafi</strong> (fintech), I designed a cross-platform content architecture for Instagram, LinkedIn, and Telegram: a shared journey — from <em>problem awareness</em> to <em>customer proof</em> — with the mix, formats, and pillar weight tuned per channel. I built the KPI framework across distribution, engagement, and intent, and used the data to redirect strategy (shorter video, and an early Awareness → Consideration gap that shaped the next optimization direction).</p>
+      <p>At <strong>BodySense</strong> (wellness clinic), I owned Instagram content end-to-end — from topic discovery through publishing — sequencing Feed and Stories in patterns like <em>Explain → Demonstrate → Offer</em>, and translating specialist knowledge into audience-ready posts that doubled as client-education assets.</p>
+      <p>I care about ownership honesty: knowing what I planned, what I designed, what I executed, and what I only observed. That's how I choose what to claim.</p>
+    </div>
+    <div class="about-btns">
+      <a href="contact.html" class="btn">Get In Touch</a>
+      <a href="index.html#work" class="btn btn-solid" data-no-transition>See Work</a>
+    </div>
+  </div>
+</div>
+
+<div class="scroll-hint">
+  <div class="scroll-hint-line"></div>
+  <span>Scroll</span>
+</div>
+
+<section class="skills-section">
+  <div class="reveal">
+    <p class="section-label">Background</p>
+    <h2 class="section-title">Architecture, psychology &amp; cognitive science</h2>
+    <p class="skills-lead" style="max-width:720px;font-size:.98rem;line-height:1.8;color:var(--text-muted);margin-top:1rem">My background spans architecture, psychology, and cognitive science—three fields that shaped my view of communication as a human process, not decoration.</p>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-title">Architecture</div>
+      <p class="skill-desc">Learned spatial and structural design.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-title">Psychology</div>
+      <p class="skill-desc">Learned how people think, feel, and behave.</p>
+    </div>
+    <div class="skill-card reveal">
+      <div class="skill-num">03</div>
+      <div class="skill-title">Cognitive Science</div>
+      <p class="skill-desc">Studied attention, perception, and understanding.</p>
+    </div>
+  </div>
+  <p class="reveal" style="margin-top:2rem;background:var(--bg2);border-left:3px solid var(--teal);padding:1.4rem 1.6rem;font-family:var(--font-serif);font-size:1.2rem;line-height:1.5;color:var(--text)">Together, they help me combine structure, human behavior, and cognition when solving communication challenges.</p>
+</section>
+
+<section class="skills-section">
+  <div class="reveal">
+    <p class="section-label">Capabilities</p>
+    <h2 class="section-title">What I do</h2>
+  </div>
+  <div class="skills-grid">
+
+    <div class="skill-card reveal">
+      <div class="skill-num">01</div>
+      <div class="skill-title">Social Media Strategy</div>
+      <p class="skill-desc">Channel roles, content pillars, audience journeys — matching platform behavior to what the brand needs at each stage.</p>
+    </div>
+
+    <div class="skill-card reveal">
+      <div class="skill-num">02</div>
+      <div class="skill-title">Content Architecture &amp; Planning</div>
+      <p class="skill-desc">Journey-based calendars that sequence posts as systems — from problem awareness through education, proof, and action.</p>
+    </div>
+
+    <a class="skill-card reveal" href="payrafi.html" data-no-transition>
+      <div class="skill-num">03</div>
+      <div class="skill-title">Social Media Design</div>
+      <p class="skill-desc">Posts, carousels, stories, campaigns, and cross-platform assets — designed inside an established brand system.</p>
+    </a>
+
+    <a class="skill-card reveal" href="payrafi.html#kpi" data-no-transition>
+      <div class="skill-num">04</div>
+      <div class="skill-title">KPI &amp; Measurement</div>
+      <p class="skill-desc">Cross-platform frameworks across distribution, engagement, and intent — with platform-specific metrics tuned to channel behavior.</p>
+    </a>
+
+    <a class="skill-card reveal" href="bodysense.html" data-no-transition>
+      <div class="skill-num">05</div>
+      <div class="skill-title">End-to-End Content Production</div>
+      <p class="skill-desc">Topic discovery → research → draft → expert review → visual design → captions → publishing. Managed as a workflow, not one-offs.</p>
+    </a>
+
+    <div class="skill-card reveal" id="skill-social">
+      <div class="skill-num">06</div>
+      <div class="skill-title">Community Management</div>
+      <p class="skill-desc">Standardized responses for recurring inquiries, escalation paths for specialist questions, and consistent brand voice in replies.</p>
+      <p class="skill-card-links">
+        <a href="https://t.me/raaz_es" target="_blank" rel="noopener" data-no-transition>Telegram ↗</a>
+        <a href="https://www.linkedin.com/in/raazes" target="_blank" rel="noopener" data-no-transition>LinkedIn ↗</a>
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<style>
+.name-art-side { position: fixed; inset: 0; z-index: 0; pointer-events: none; }
+.name-art-side canvas { position: absolute; inset: 0; }
+.page-wrapper { position: relative; z-index: 1; }
+@media (max-width: 1280px) { .name-art-side { display: none; } }
+</style>
+<div class="name-art-side"><canvas id="name-art-canvas"></canvas></div>
+<script src="assets/name-art.js"></script>
+<script>initNameArt(document.getElementById('name-art-canvas'), {vertical: true, contentWidth: 1240, persist: true});</script>
+
+<footer>
+  <p>© 2026 Razieh Eslami — All rights reserved. &nbsp; · &nbsp; <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a></p>
+</footer>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.page-wrapper');
+  if (wrapper) {
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => wrapper.classList.add('visible'));
+    });
+  }
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') ||
+        href.startsWith('tel') || href.startsWith('http') ||
+        link.hasAttribute('data-no-transition')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (wrapper) wrapper.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 310);
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+  }
+
+  var hint = document.querySelector('.scroll-hint');
+  if (hint) {
+    window.addEventListener('scroll', function () {
+      hint.classList.toggle('hidden', window.scrollY > 60);
+    }, { passive: true });
+  }
+});
+</script>
+
+</body>
+</html>

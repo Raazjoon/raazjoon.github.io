@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PayRafi | Razieh Eslami</title>
+<meta name="description" content="Cross-platform social media system for PayRafi (fintech) — strategy, content architecture, design, and KPI framework across Instagram, LinkedIn, and Telegram.">
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<style>
+@font-face{font-family:'SoulMotion';src:url('./assets/SoulMotion.otf') format('opentype')}
+@import url('https://fonts.googleapis.com/css2?family=Cardo:ital,wght@0,400;0,700;1,400&family=Hanken+Grotesk:wght@300;400;500;600;700&display=swap');
+:root{--bg:#393939;--bg2:#312d31;--surface:#463f46;--teal:#bfaabe;--teal2:#9d7f9b;--text:#e3e3e4;--text-muted:#c4bbc3;--border:rgba(191,170,190,.15);--font-sans:'Hanken Grotesk','Helvetica Neue',sans-serif;--font-serif:'Cardo',Georgia,serif}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font-sans);background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
+.page-wrapper{opacity:0;transform:translateY(18px);transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1)}
+.page-wrapper.visible{opacity:1;transform:translateY(0)}
+.page-exit{opacity:0!important;transform:translateY(-14px)!important;transition:opacity .3s ease,transform .3s ease!important}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:1.2rem 3rem;background:rgba(57,57,57,.55);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:'SoulMotion',var(--font-serif);font-size:1.35rem;color:var(--teal);letter-spacing:.04em;text-decoration:none;transition:opacity .2s;display:flex;align-items:center}
+.nav-logo:hover{opacity:.75}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{font-family:var(--font-sans);font-size:.82rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .25s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:100%;height:1px;background:var(--teal);transition:right .3s cubic-bezier(.4,0,.2,1)}
+.nav-links a:hover,.nav-links a.active{color:var(--teal)}
+.nav-links a:hover::after,.nav-links a.active::after{right:0}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--text-muted);transition:all .3s}
+.mobile-menu{display:none;flex-direction:column;position:fixed;top:64px;left:0;right:0;background:rgba(49,45,49,.97);backdrop-filter:blur(18px);padding:1.5rem 3rem;gap:1.2rem;z-index:99;border-bottom:1px solid var(--border);transform:translateY(-10px);opacity:0;transition:opacity .3s,transform .3s}
+.mobile-menu.open{display:flex;opacity:1;transform:translateY(0)}
+.mobile-menu a{font-size:.9rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text-muted);text-decoration:none;transition:color .2s}
+.mobile-menu a:hover{color:var(--teal)}
+footer{text-align:center;padding:3rem 2rem;color:var(--text-muted);font-size:.8rem;letter-spacing:.06em;border-top:1px solid var(--border);margin-top:6rem}
+footer a{color:var(--teal);text-decoration:none}
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.4,0,.2,1),transform .7s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+@media (max-width:768px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}}
+</style>
+<style>
+.project-hero{padding:140px 3rem 4rem;max-width:900px;margin:0 auto;text-align:center}
+.project-pre{font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:.8rem}
+.project-hero h1{font-family:var(--font-serif);font-size:clamp(2.8rem,7vw,5rem);font-weight:400;line-height:1.08;margin-bottom:1.5rem}
+.project-hero .desc{font-size:1.05rem;line-height:1.8;color:var(--text-muted);max-width:640px;margin:0 auto 2.5rem}
+.project-meta{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;padding:2rem 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-bottom:3rem}
+.meta-item small{display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.3rem}
+.meta-item span{font-size:.9rem;color:var(--text)}
+
+.case-section{max-width:900px;margin:0 auto;padding:3rem 3rem 1rem}
+.case-section h2{font-family:var(--font-serif);font-size:clamp(1.6rem,3.5vw,2.2rem);font-weight:400;color:var(--text);margin-bottom:1.2rem;line-height:1.25}
+.case-section h3{font-size:.75rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin:2rem 0 .8rem;font-weight:600}
+.case-section p{font-size:.98rem;line-height:1.85;color:var(--text-muted);margin-bottom:1.1rem}
+.case-section p strong{color:var(--text);font-weight:600}
+.case-section ul{list-style:none;margin:0 0 1.2rem 0;padding:0}
+.case-section ul li{position:relative;padding-left:1.2rem;font-size:.95rem;line-height:1.75;color:var(--text-muted);margin-bottom:.5rem}
+.case-section ul li::before{content:'▸';position:absolute;left:0;color:var(--teal);font-size:.8rem;top:.15rem}
+.case-section em{color:var(--text);font-style:normal;border-bottom:1px dotted var(--teal)}
+
+.pillar-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:.6rem;margin:1.2rem 0 2rem}
+.pillar-chip{background:var(--surface);border:1px solid var(--border);padding:.9rem 1rem;border-radius:2px;text-align:center;font-size:.78rem;letter-spacing:.06em;color:var(--text)}
+.pillar-chip small{display:block;color:var(--teal);font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.35rem}
+
+.journey-flow{display:flex;flex-wrap:wrap;align-items:center;gap:.7rem;padding:1.5rem;background:var(--bg2);border:1px solid var(--border);border-radius:2px;margin:1.2rem 0 2rem;justify-content:center}
+.journey-step{font-size:.82rem;color:var(--text);padding:.5rem .9rem;background:var(--surface);border-radius:2px;white-space:nowrap}
+.journey-arrow{color:var(--teal);font-size:1rem}
+
+.finding{background:var(--surface);border-left:3px solid var(--teal);padding:1.4rem 1.5rem;margin:1.2rem 0;border-radius:0 2px 2px 0}
+.finding-label{font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;color:var(--teal);margin-bottom:.5rem;font-weight:600}
+.finding p{margin:0;color:var(--text);font-size:.95rem;line-height:1.75}
+.finding p + p{margin-top:.6rem;color:var(--text-muted);font-size:.9rem}
+
+.limitation{background:transparent;border:1px dashed rgba(227,227,228,.3);padding:1.2rem 1.4rem;margin:1.2rem 0;border-radius:2px;font-size:.88rem;line-height:1.7;color:var(--text-muted)}
+.limitation strong{color:var(--text-muted);text-transform:uppercase;letter-spacing:.14em;font-size:.7rem;font-weight:600;display:block;margin-bottom:.4rem}
+
+.kpi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:1.2rem 0 2rem}
+.kpi-col{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.2rem;border-radius:2px}
+.kpi-col h4{font-family:var(--font-serif);font-size:1.1rem;color:var(--teal);margin-bottom:.9rem;font-weight:400}
+.kpi-col ul{padding-left:0}
+.kpi-col ul li{font-size:.82rem;padding-left:.9rem;margin-bottom:.35rem;line-height:1.5}
+.kpi-col ul li::before{font-size:.65rem;top:.3rem}
+
+.ownership-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:.5rem;margin:1.2rem 0 2rem;background:var(--bg2);padding:1.5rem;border:1px solid var(--border);border-radius:2px}
+.own-item{display:flex;justify-content:space-between;font-size:.85rem;padding:.4rem 0;border-bottom:1px solid rgba(227,227,228,.1)}
+.own-item:last-child{border-bottom:none}
+.own-item span:first-child{color:var(--text-muted)}
+.own-item span:last-child{color:var(--teal);font-weight:600;font-size:.72rem;letter-spacing:.08em;text-transform:uppercase}
+
+.project-gallery{max-width:1200px;margin:0 auto;padding:2rem 3rem 4rem}
+.gallery-label{text-align:center;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:var(--teal);margin-bottom:2rem}
+.portfolio-grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));grid-auto-rows:auto}
+.portfolio-img{width:100%;height:auto;display:block;border-radius:2px;transition:opacity .2s,transform .25s;cursor:zoom-in}
+.portfolio-img:hover{opacity:.85;transform:scale(1.005)}
+
+.project-nav{max-width:1200px;margin:0 auto;padding:0 3rem 6rem;display:flex;justify-content:space-between;gap:1rem}
+.project-nav-link{text-decoration:none;border:1px solid var(--border);padding:1.2rem 2rem;transition:border-color .3s,background .3s;flex:1;max-width:300px}
+.project-nav-link:hover{border-color:var(--teal);background:rgba(191,170,190,.04)}
+.project-nav-link small{display:block;font-size:.65rem;letter-spacing:.18em;text-transform:uppercase;color:var(--text-muted);margin-bottom:.4rem}
+.project-nav-link span{font-size:.95rem;color:var(--text)}
+.project-nav-link.next{text-align:right}
+
+.lightbox{display:none;position:fixed;inset:0;background:rgba(36,32,36,.96);z-index:1000;justify-content:center;align-items:center;cursor:zoom-out}
+.lightbox.open{display:flex}
+.lightbox img{max-width:92vw;max-height:92vh;border-radius:2px;box-shadow:0 20px 80px rgba(0,0,0,.7);pointer-events:none}
+.lightbox-close{position:fixed;top:1.2rem;right:1.5rem;color:var(--text);font-size:1.4rem;cursor:pointer;opacity:.55;transition:opacity .2s;background:none;border:none;z-index:1001}
+.lightbox-close:hover{opacity:1}
+
+@media (max-width:768px){
+  .project-hero{padding:120px 1.5rem 3rem}
+  .case-section{padding:2rem 1.5rem 1rem}
+  .project-gallery{padding:1rem 1.5rem 3rem}
+  .project-nav{padding:0 1.5rem 4rem;flex-direction:column}
+  .project-nav-link{max-width:100%}
+  .kpi-grid{grid-template-columns:1fr}
+  .portfolio-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:480px){.portfolio-grid{grid-template-columns:1fr}}
+</style>
+<style>
+/* Added from the Canva portfolio — built on the existing tokens */
+.data-table{width:100%;border-collapse:collapse;margin:1.2rem 0 1.5rem;font-size:.88rem}
+.data-table th{font-size:.65rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);font-weight:600;text-align:left;padding:.9rem 1rem;background:var(--bg2);border:1px solid var(--border)}
+.data-table td{padding:.85rem 1rem;color:var(--text-muted);border:1px solid var(--border);background:var(--surface)}
+.data-table td:first-child{color:var(--text)}
+.table-scroll{overflow-x:auto}
+.sample-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;margin:1.2rem 0 1.5rem}
+.sample-row figure{margin:0}
+.sample-row img{width:100%;height:auto;display:block;border-radius:2px;cursor:zoom-in;transition:opacity .2s}
+.sample-row img:hover{opacity:.85}
+.sample-row figcaption{margin-top:.6rem;font-size:.85rem;color:var(--text)}
+.sample-row figcaption small{display:block;font-size:.62rem;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:.25rem}
+.sample-row.insights{max-width:460px}
+.sample-row.wide{grid-template-columns:repeat(auto-fit,minmax(260px,1fr))}
+.stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.6rem;margin:1rem 0 1.5rem}
+.stat-tile{background:var(--bg2);border:1px solid var(--border);padding:1rem;border-radius:2px;text-align:center}
+.stat-tile .num{font-family:var(--font-serif);font-size:1.6rem;color:var(--teal);display:block;line-height:1.1;margin-bottom:.3rem}
+.stat-tile .lbl{font-size:.65rem;letter-spacing:.14em;text-transform:uppercase;color:var(--text-muted)}
+.mix-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.2rem 0 2rem}
+.mix-card{background:var(--surface);border:1px solid var(--border);padding:1.4rem 1.3rem;border-radius:2px}
+.mix-card h4{font-family:var(--font-serif);font-size:1.05rem;color:var(--teal);margin-bottom:.6rem;font-weight:400}
+.mix-card p{font-size:.85rem;line-height:1.6;color:var(--text-muted);margin:0}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Razieh Eslami</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Portfolio</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="hamburger"><span></span><span></span><span></span></div>
+</nav>
+<div class="mobile-menu">
+  <a href="index.html">Portfolio</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact</a>
+</div>
+<div class="page-wrapper">
+
+<div class="project-hero reveal">
+  <p class="project-pre">Fintech · Multi-platform Social</p>
+  <h1>PayRafi</h1>
+  <p class="desc">A cross-platform social media system for a fintech serving freelancers, students, and diaspora — designed to build trust, educate users, and move audiences from problem awareness to product intent.</p>
+  <div class="project-meta">
+    <div class="meta-item"><small>Role</small><span>Cross-Platform Social Media Strategist &amp; Designer</span></div>
+    <div class="meta-item"><small>Year</small><span>2025–2026</span></div>
+    <div class="meta-item"><small>Duration</small><span>October 2025 – May 2026</span></div>
+    <div class="meta-item"><small>Platforms</small><span>Instagram · LinkedIn · Telegram</span></div>
+  </div>
+</div>
+
+<section class="case-section reveal">
+  <h2>The brief</h2>
+  <p>Build and develop a consistent social media presence for PayRafi, focused on reaching target audiences — <strong>freelancers, students, and diaspora</strong> — building trust and credibility, and educating users about the product. Brand Book and Tone of Voice were provided at the start; I worked alongside a Content Writer responsible for content scenarios and copy.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Understand the business</h2>
+  <p>PayRafi needed communication that built trust, educated users, and supported product adoption across multiple platforms.</p>
+  <h3>The challenge</h3>
+  <ul>
+    <li>Build trust in a financial service.</li>
+    <li>Reach different audiences effectively.</li>
+    <li>Educate without overwhelming users.</li>
+    <li>Create a clear path from awareness to signup.</li>
+  </ul>
+  <h3>Business goal</h3>
+  <p>Build a communication system that increased awareness, strengthened trust, and guided product adoption.</p>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Communication was designed to solve business problems—not simply produce content.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Channel-specific content strategy</h2>
+  <p>Rather than assigning each platform to a single funnel objective, I used a <strong>shared content framework</strong> across Instagram, LinkedIn, and Telegram, then tuned the <em>content mix</em>, <em>publishing frequency</em>, <em>formats</em>, and <em>pillar weight</em> per platform.</p>
+  <ul>
+    <li><strong>LinkedIn &amp; Telegram</strong> — leaned toward Awareness, matching where target audiences were most active.</li>
+    <li><strong>Instagram</strong> — leaned toward Trust &amp; Credibility, showing PayRafi as a real, legitimate service.</li>
+  </ul>
+  <p>A topic could appear on multiple platforms, but its angle and emphasis shifted with the channel's role.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Understand the audience</h2>
+  <p>Different platforms served different audiences and different stages of the decision journey.</p>
+  <div class="table-scroll">
+  <table class="data-table">
+    <thead><tr><th>Platform</th><th>Primary Audience</th><th>Role in the Communication Journey</th></tr></thead>
+    <tbody>
+      <tr><td>LinkedIn</td><td>Freelancers • Students • Diaspora</td><td>Awareness</td></tr>
+      <tr><td>Telegram</td><td>Freelancers • Students • Diaspora</td><td>Awareness &amp; Education</td></tr>
+      <tr><td>Instagram</td><td>Existing &amp; New Users</td><td>Trust</td></tr>
+    </tbody>
+  </table>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Rather than repeating the same content across channels, each platform was assigned a specific communication role.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h3>Content pillars <span style="color:var(--text-muted);font-size:.65rem;text-transform:none;letter-spacing:.05em;font-weight:400;">— developed collaboratively</span></h3>
+  <div class="pillar-row">
+    <div class="pillar-chip"><small>Pillar 01</small>Problem Awareness</div>
+    <div class="pillar-chip"><small>Pillar 02</small>Safe Guidance</div>
+    <div class="pillar-chip"><small>Pillar 03</small>Trust &amp; Credibility</div>
+    <div class="pillar-chip"><small>Pillar 04</small>App Education</div>
+    <div class="pillar-chip"><small>Pillar 05</small>Action &amp; Promotion</div>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Journey-based content architecture</h2>
+  <p>The calendar was more than a publishing schedule. I determined publishing frequency per platform, formats, pillar weight by channel, and the sequencing of content across the audience journey. One recurring journey:</p>
+  <div class="journey-flow">
+    <span class="journey-step">Problem Awareness</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Safe Guidance</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">PayRafi as Solution</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">App Education</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Sign-up CTA</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Customer Proof</span>
+  </div>
+  <p>Content moved audiences from problem recognition through guidance, product education, and social proof — planned as a sequence rather than a collection of isolated posts.</p>
+</section>
+
+<section class="case-section reveal">
+  <h2>Discover what matters</h2>
+  <p>The communication journey was built around the questions users needed answered before they could trust the service.</p>
+  <div class="sample-row">
+    <figure><img src="assets/payrafi-q1-safe-transfer.jpg" loading="lazy" alt="Safe money transfer checklist"><figcaption><small>01</small>How can I transfer money safely?</figcaption></figure>
+    <figure><img src="assets/payrafi-q2-trust.jpg" loading="lazy" alt="Account security post"><figcaption><small>02</small>Can I trust PayRafi?</figcaption></figure>
+    <figure><img src="assets/payrafi-q3-signup.jpg" loading="lazy" alt="Invite and earn post"><figcaption><small>03</small>Is it worth signing up?</figcaption></figure>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Every answer prepared users for the next decision, bringing them one step closer to trust.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Build the communication system</h2>
+  <p>A strategy only creates value when it can be executed consistently.</p>
+  <div class="journey-flow">
+    <span class="journey-step">Content Pillars</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Content Calendar</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Cross-Platform Adaptation</span>
+    <span class="journey-arrow">→</span>
+    <span class="journey-step">Published Content</span>
+  </div>
+  <div class="sample-row wide">
+    <figure><img src="assets/payrafi-content-calendar.jpg" loading="lazy" alt="PayRafi content calendar"><figcaption><small>Content Calendar</small>Planned by platform, format, and pillar</figcaption></figure>
+    <figure><img src="assets/payrafi-cross-platform.jpg" loading="lazy" alt="One topic adapted for Instagram, Telegram, and LinkedIn"><figcaption><small>Cross-Platform Adaptation</small>Instagram · Telegram · LinkedIn</figcaption></figure>
+  </div>
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Every piece of content had a strategic purpose.</p>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Visual design inside an established brand</h2>
+  <p>Working within the existing Brand Book, I translated the identity into a consistent social media visual system: <strong>posts, carousels, stories, app walkthroughs, campaign assets, and cross-platform variants</strong>. The gallery below samples work across all three channels.</p>
+  <div class="limitation"><strong>Claim boundary</strong>The core brand identity was not created by me — the Brand Book already existed. What I claim is the social media visual system and execution within that identity.</div>
+</section>
+
+<section class="case-section reveal" id="kpi">
+  <h2>KPI &amp; measurement framework</h2>
+  <p>I designed a cross-platform KPI framework structured across three levels: <strong>Distribution → Engagement → Intent</strong>. Platform-specific metrics were then selected based on each channel's behavior.</p>
+  <div class="kpi-grid">
+    <div class="kpi-col">
+      <h4>Instagram</h4>
+      <ul>
+        <li>Reach</li>
+        <li>Engagement Rate</li>
+        <li>Save Rate · Share Rate</li>
+        <li>Story Completion Rate</li>
+        <li>DM per 1,000 Reach</li>
+        <li>Link Click Rate</li>
+      </ul>
+    </div>
+    <div class="kpi-col">
+      <h4>Telegram</h4>
+      <ul>
+        <li>Member Growth Rate</li>
+        <li>Post View Rate</li>
+        <li>Forward Rate</li>
+        <li>CTR</li>
+        <li>Lead per 1,000 Reach</li>
+        <li>Unsubscribe Rate</li>
+      </ul>
+    </div>
+    <div class="kpi-col">
+      <h4>LinkedIn</h4>
+      <ul>
+        <li>Impressions</li>
+        <li>Engagement Rate</li>
+        <li>Share Rate</li>
+        <li>Website Click</li>
+        <li>Lead per 1,000 Impressions</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Performance-led optimization</h2>
+  <p>Performance data was used to generate actionable insights, not just reporting.</p>
+
+  <div class="finding">
+    <div class="finding-label">Finding 01 — Video length</div>
+    <p>Analysis indicated videos needed to be shorter.</p>
+    <p><strong>Insight → Action:</strong> reduce the length of subsequent video content.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Finding 02 — Awareness vs. engagement gap</div>
+    <p>Approximately <strong>90% of reach came from non-followers</strong>, while <strong>70% of engagement came from followers</strong>.</p>
+    <p>Distribution was successfully exposing PayRafi to new audiences, but new viewers weren't progressing into engagement at the same rate — suggesting a potential gap in progression toward deeper consideration.</p>
+  </div>
+
+  <h3>Measured example — KPIs</h3>
+  <div class="stat-grid">
+    <div class="stat-tile"><span class="num">10.7K</span><span class="lbl">Views</span></div>
+    <div class="stat-tile"><span class="num">91.5%</span><span class="lbl">Non-Followers</span></div>
+    <div class="stat-tile"><span class="num">124</span><span class="lbl">Shares</span></div>
+    <div class="stat-tile"><span class="num">41</span><span class="lbl">Profile Visits</span></div>
+    <div class="stat-tile"><span class="num">17</span><span class="lbl">Follows</span></div>
+  </div>
+  <div class="sample-row insights">
+    <figure><img src="assets/payrafi-insights-views.jpg" loading="lazy" alt="Reel insights: 10,719 views"><figcaption><small>Discovery</small>Views &amp; non-follower reach</figcaption></figure>
+    <figure><img src="assets/payrafi-insights-actions.jpg" loading="lazy" alt="Reel insights: shares, profile visits and follows"><figcaption><small>Action</small>Shares, profile visits &amp; follows</figcaption></figure>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Key findings</div>
+    <p>Collaborations expanded reach beyond the existing audience.</p>
+    <p>Clear service education encouraged shares, profile visits, and follows.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Next direction</div>
+    <p>Use relevant collaborations to support discovery.</p>
+    <p>Turn high-interest service topics into clear explainers with one focused CTA.</p>
+  </div>
+
+  <div class="finding">
+    <div class="finding-label">Strategic Decision</div>
+    <p>Performance insights informed the next content priorities.</p>
+  </div>
+
+  <div class="limitation"><strong>Honest limitation</strong>The project concluded before the hypothesis around the Awareness → Consideration gap could be fully tested and re-measured. This case documents <em>problem detected → hypothesis identified → next optimization direction defined</em> — not a completed funnel optimization.</div>
+</section>
+
+<section class="case-section reveal">
+  <h2>Ownership</h2>
+  <div class="ownership-list">
+    <div class="own-item"><span>Content Strategy</span><span>Collaborated</span></div>
+    <div class="own-item"><span>Content Pillars</span><span>Collaborated</span></div>
+    <div class="own-item"><span>Channel Strategy</span><span>Owned</span></div>
+    <div class="own-item"><span>Content Calendar</span><span>Owned</span></div>
+    <div class="own-item"><span>Content Architecture / Journey</span><span>Owned</span></div>
+    <div class="own-item"><span>Visual Design</span><span>Owned</span></div>
+    <div class="own-item"><span>Multi-platform Planning</span><span>Owned</span></div>
+    <div class="own-item"><span>KPI Framework</span><span>Owned</span></div>
+    <div class="own-item"><span>Performance Analysis</span><span>Owned</span></div>
+    <div class="own-item"><span>Referral Campaign</span><span>Executed</span></div>
+    <div class="own-item"><span>Copywriting / Captions</span><span>Collaborative</span></div>
+    <div class="own-item"><span>Community Management</span><span>Owned</span></div>
+  </div>
+</section>
+
+<div class="project-gallery reveal">
+  <p class="gallery-label">Selected Assets · Instagram · LinkedIn · Telegram</p>
+  <div class="portfolio-grid">
+    <img src="assets/payrafi-work-app-walkthrough.jpg" loading="lazy" class="portfolio-img" alt="App Walkthrough — Instagram Carousel">
+    <img src="assets/payrafi-work-financial-awareness.jpg" loading="lazy" class="portfolio-img" alt="Financial Awareness — LinkedIn Carousel">
+    <img src="assets/payrafi-work-service-promotion.jpg" loading="lazy" class="portfolio-img" alt="Service Promotion — Telegram Post">
+    <img src="assets/payrafi-work-trust-reel.jpg" loading="lazy" class="portfolio-img" alt="Trust-Building Reel — Instagram Reel">
+    <img src="assets/payrafi-work-telegram-banner.jpg" loading="lazy" class="portfolio-img" alt="Telegram Campaign Banner — Landscape Campaign Asset">
+    <img src="assets/payrafi-work-website-visual.jpg" loading="lazy" class="portfolio-img" alt="Website Visual — Blog Header, Editorial Illustration">
+    <img src="assets/payrafi-work-annual-transfers.jpg" loading="lazy" class="portfolio-img" alt="PayRafi Instagram post">
+    <img src="assets/payrafi-work-compare-methods.jpg" loading="lazy" class="portfolio-img" alt="PayRafi Instagram post — comparing transfer methods">
+    <img src="assets/payrafi-work-linkedin-page.jpg" loading="lazy" class="portfolio-img" alt="PayRafi LinkedIn page">
+  </div>
+</div>
+
+<div class="project-nav">
+  <a href="index.html" class="project-nav-link prev reveal">
+    <small>← Back to</small>
+    <span>All Projects</span>
+  </a>
+  <a href="bodysense.html" class="project-nav-link next reveal">
+    <small>Next Project →</small>
+    <span>BodySense</span>
+  </a>
+</div>
+
+<footer><p>© 2026 Razieh Eslami — All rights reserved. &nbsp; · &nbsp; <a href="mailto:razieeslami@gmail.com">razieeslami@gmail.com</a></p></footer>
+</div>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">✕</button>
+  <img id="lightbox-img" src="" alt="">
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const wrapper = document.querySelector('.page-wrapper');
+  if (wrapper) requestAnimationFrame(() => requestAnimationFrame(() => wrapper.classList.add('visible')));
+  document.querySelectorAll('a[href]').forEach(link => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('mailto') || href.startsWith('tel') || href.startsWith('http') || link.hasAttribute('data-no-transition')) return;
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      if (wrapper) wrapper.classList.add('page-exit');
+      setTimeout(() => { window.location.href = href; }, 310);
+    });
+  });
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const hamburger = document.querySelector('.hamburger');
+  const mobileMenu = document.querySelector('.mobile-menu');
+  if (hamburger && mobileMenu) hamburger.addEventListener('click', () => mobileMenu.classList.toggle('open'));
+
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  document.addEventListener('click', function(e) {
+    if (e.target.classList && (e.target.classList.contains('portfolio-img') || e.target.closest('.sample-row'))) {
+      lbImg.src = e.target.src; lightbox.classList.add('open');
+    }
+  });
+  lightbox.addEventListener('click', function(e) { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.getElementById('lightbox-close').addEventListener('click', function() { lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', function(e) { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+});
+</script>
+</body>
+</html>
