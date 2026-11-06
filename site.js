@@ -77,7 +77,7 @@ function showImage(index) {
   const source = activeGroup[activeIndex];
   viewerImage.src = source.dataset.full;
   dialog.querySelector('[data-original]').href = source.dataset.full;
-  viewerImage.alt = source.querySelector('img').alt;
+  viewerImage.alt = source.dataset.fullAlt || source.querySelector('img').alt;
   viewerCaption.textContent = source.dataset.caption || viewerImage.alt;
   viewerCount.textContent = `${activeIndex + 1} / ${activeGroup.length}`;
   previous.disabled = next.disabled = activeGroup.length === 1;

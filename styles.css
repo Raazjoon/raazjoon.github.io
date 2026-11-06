@@ -22,3 +22,19 @@
 .work-collection{border-top:1px solid var(--line);margin-top:36px;padding-top:30px;min-width:0}.collection-heading{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:end;margin-bottom:24px}.collection-heading .eyebrow{margin-bottom:9px}.collection-heading h3{font-size:2rem}.collection-heading>p{font-size:.9rem}.carousel{min-width:0}.carousel-track{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);padding:6px 3px 18px}.carousel-track:focus-visible{outline:2px solid var(--accent);outline-offset:4px}.carousel-track figure{flex:0 0 calc((100% - 40px)/3);min-width:0;scroll-snap-align:start}.carousel-track .image-button{width:100%;padding:0;background:transparent}.carousel-track img{width:100%;height:auto;aspect-ratio:4/5;object-fit:contain}.carousel-track figcaption{font-size:.86rem;color:var(--text);padding:12px 0 0;line-height:1.5}.carousel-track figcaption span,.wide-figure figcaption span{display:block;font-size:.73rem;color:var(--muted);margin-top:4px}.carousel-controls{display:flex;justify-content:space-between;align-items:center;gap:20px;margin-top:10px}.carousel-controls p{font-size:.77rem}.carousel-controls>div{display:none;gap:9px}.js .carousel-controls>div{display:flex}.carousel-controls button{background:transparent;border:1px solid var(--accent);color:var(--text);min-width:46px;min-height:44px;font-size:1.2rem}.carousel-controls button:hover{background:var(--surface)}
 .reels-grid .image-button{height:auto;padding:0;background:transparent}.reels-grid img{width:100%;height:auto;max-height:none;aspect-ratio:9/16;object-fit:contain}.landscape-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.landscape-grid .image-button{height:auto;padding:0}.landscape-grid img{width:100%;height:auto;max-height:none;aspect-ratio:850/476;object-fit:contain}.social-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.social-grid .image-button{height:380px}.story-four{grid-template-columns:repeat(4,minmax(0,1fr))}.story-four img{height:auto;width:100%;aspect-ratio:9/16;object-fit:contain}.story-four .image-button{padding:0;background:transparent}
 @media(max-width:760px){.collection-heading{grid-template-columns:1fr;gap:12px}.collection-heading h3{font-size:1.65rem}.collection-nav{gap:8px}.collection-nav a{font-size:.74rem;padding:8px 11px}.carousel-track{gap:14px}.carousel-track figure{flex-basis:82%}.carousel-controls{align-items:start}.carousel-controls p{max-width:200px}.reels-grid{gap:23px 14px}.reels-grid .image-button,.landscape-grid .image-button{height:auto}.landscape-grid{grid-template-columns:1fr}.social-grid .image-button{height:230px}.story-four{grid-template-columns:repeat(2,minmax(0,1fr));gap:24px 14px}.story-four img{height:auto}.story-four figure:last-child{grid-column:auto;max-width:none;justify-self:stretch}.story-four figcaption{font-size:.76rem}.story-four figcaption span{font-size:.68rem}.question-list{display:grid;gap:8px}}
+
+/* Keep the work close to the introduction and align proof links across the row. */
+.hero { padding-block: clamp(32px, 4vw, 58px); }
+.hero-portrait { width: min(19vw, 235px); }
+.hero-portrait figcaption { margin-top: 12px; }
+.process-item { display: flex; flex-direction: column; align-items: flex-start; }
+.process-item .project-proof-link { margin-top: auto; padding-block: 15px 4px; }
+.case-nav a { min-height: 44px; display: inline-flex; align-items: center; }
+.lightbox-controls { flex-wrap: wrap; }
+.work-card:hover .work-title h3, .work-card:focus-visible .work-title h3 { color: var(--accent); }
+@media (max-width:760px) {
+  .hero-portrait { width: auto; }
+  .hero-portrait img { width: 62px; height: 62px; }
+  .hero-portrait figcaption { margin: 0; }
+  .hero { gap: 22px; }
+}
